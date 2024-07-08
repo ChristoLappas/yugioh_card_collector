@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             x:Class="Yu_Gi_Oh__Card_Collector.Views.LoginView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Login"
+             Shell.FlyoutBehavior="Disabled"   
+             xmlns:converters="clr-namespace:Yu_Gi_Oh__Card_Collector.Converters"
+             xmlns:local="clr-namespace:Yu_Gi_Oh__Card_Collector.ViewModels"
+             x:DataType="local:LoginViewModel">    
+
+    <ContentPage.Behaviors>        
+        <mct:StatusBarBehavior StatusBarColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Gray950}}" StatusBarStyle="LightContent"/>
+    </ContentPage.Behaviors>   
+
+
+    <VerticalStackLayout>
+        <Entry x:Name="emailEntry" Placeholder="E-mail" Text="{Binding Email}"></Entry>
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}"></Entry>
+        <Button Text="Log In" Command="{Binding LoginCommand}" Margin="0,0,0,5"></Button>
+        <Button Text="Register" Command="{Binding GoToRegisterCommand}" Margin="0,0,0,5"></Button>
+        <skia:SKLottieView
+            Source="password.json"
+            RepeatCount="-1"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            Margin="50"/>
+    </VerticalStackLayout>
+
+    
+
+
+
+</ContentPage>

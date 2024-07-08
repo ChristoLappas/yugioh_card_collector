@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Yu_Gi_Oh__Card_Collector.Views.RegisterView"
+             xmlns:local="clr-namespace:Yu_Gi_Oh__Card_Collector.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:converters="clr-namespace:Yu_Gi_Oh__Card_Collector.Converters"
+             x:DataType="local:RegisterViewModel"
+             Title="Register">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TextToLineConverter x:Key="textToLine"></converters:TextToLineConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <Entry Placeholder="User name" Text="{Binding User}"></Entry>
+        <Entry x:Name="emailEntry" Placeholder="E-mail" Text="{Binding Email}"></Entry>
+        <Entry x:Name="passwordEntry" Placeholder="Password" IsPassword="True" Text="{Binding Password}"></Entry>        
+        <Line X1="0" X2="{Binding Source={x:Reference passwordEntry},Path=Text, Converter={StaticResource textToLine}}" Stroke="green" StrokeThickness="10"></Line>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Margin="5">Weak</Label>
+            <Label Grid.Column="1" HorizontalTextAlignment="End" Margin="5">Strong</Label>
+        </Grid>
+        <Button Text="Register" Margin="10" Command="{Binding CreateUserCommand}"></Button>
+        <skia:SKLottieView
+            Source="register.json"
+            RepeatCount="-1"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            />
+    </VerticalStackLayout>
+</ContentPage>

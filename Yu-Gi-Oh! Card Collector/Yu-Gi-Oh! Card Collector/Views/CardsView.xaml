@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"             
+             x:Class="Yu_Gi_Oh__Card_Collector.Views.CardsView"
+             xmlns:local="clr-namespace:Yu_Gi_Oh__Card_Collector.ViewModels"
+             x:DataType="local:CardsViewModel"
+             xmlns:model="clr-namespace:Yu_Gi_Oh__Card_Collector.Models"             
+             Title="Cards">
+
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding LoadDecksCommand}"/>        
+    </ContentPage.Behaviors>
+    
+    
+    <ScrollView>
+        <VerticalStackLayout>
+            <Entry x:Name="NameEntry" Placeholder="Insert cardname" Text="{Binding CardName}"/>            
+
+            <Picker
+                SelectedItem="{Binding Attribute}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Title="Attribute">
+                <Picker.Items>
+                    <x:String>Dark</x:String>
+                    <x:String>Earth</x:String>
+                    <x:String>Fire</x:String>
+                    <x:String>Light</x:String>
+                    <x:String>Water</x:String>
+                    <x:String>Wind</x:String>
+                    <x:String>Divine</x:String>
+                    <x:String> </x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Picker
+                SelectedItem="{Binding Race}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Title="Race">
+                <Picker.Items>
+                    <x:String>Aqua</x:String>
+                    <x:String>Beast</x:String>
+                    <x:String>Beast-Warrior</x:String>
+                    <x:String>Creator-God</x:String>
+                    <x:String>Cyberse</x:String>
+                    <x:String>Dinosaur</x:String>
+                    <x:String>Divine-Beast</x:String>
+                    <x:String>Dragon</x:String>
+                    <x:String>Fairy</x:String>
+                    <x:String>Fiend</x:String>
+                    <x:String>Fish</x:String>
+                    <x:String>Insect</x:String>
+                    <x:String>Machine</x:String>
+                    <x:String>Plant</x:String>
+                    <x:String>Psychic</x:String>
+                    <x:String>Pyro</x:String>
+                    <x:String>Reptile</x:String>
+                    <x:String>Rock</x:String>
+                    <x:String>Sea Serpent</x:String>
+                    <x:String>Spellcaster</x:String>
+                    <x:String>Thunder</x:String>
+                    <x:String>Warrior</x:String>
+                    <x:String>Winged Beast</x:String>
+                    <x:String>Wyrm</x:String>
+                    <x:String>Zombie</x:String>
+                    <x:String> </x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Picker
+                SelectedItem="{Binding Sort}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Title="Sort by">
+                <Picker.Items>
+                    <x:String>Atk</x:String>
+                    <x:String>Def</x:String>
+                    <x:String>Name</x:String>
+                    <x:String>Type</x:String>
+                    <x:String>Level</x:String>                    
+                    <x:String> </x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Button x:Name="btnSearch" Text="Search card" Margin="5,0,0,0" Command="{Binding LoadCardsCommand}"/>
+
+            <CollectionView x:Name="YugiohCardCollection" ItemsSource="{Binding CardList}" Margin="10">
+
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Card">
+                        <VerticalStackLayout Margin="10">
+
+                            <Label Text="{Binding Name}" HorizontalTextAlignment="Center" FontSize="Medium" FontAttributes="Bold" Margin="0,10,0,10"></Label>
+                            <Image Source="{Binding CardImages[0].ImageUrl}"></Image>
+
+                            <Frame BorderColor="Transparent" HasShadow="True" CornerRadius="12" Margin="0,10">
+
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="1,1">
+                                        <GradientStop Color="{StaticResource Tertiary}" Offset="0.2"/>
+                                        <GradientStop Color="{StaticResource Secondary}" Offset="0.66"/>
+                                        <GradientStop Color="{StaticResource Primary}" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+
+                                <VerticalStackLayout>
+
+
+                                    <Label Text="{Binding Description}" Margin="0,10,0,10"></Label>
+
+
+                                    <Label Text="{Binding Type}"></Label>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Attack: "></Label>
+                                        <Label Text="{Binding Attack}"></Label>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Defense: "></Label>
+                                        <Label Text="{Binding Defense}"></Label>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Level: "></Label>
+                                        <Label Text="{Binding Level}"></Label>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Race: "></Label>
+                                        <Label Text="{Binding Race}"></Label>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Attribute: "></Label>
+                                        <Label Text="{Binding Attribute}"></Label>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type local:CardsViewModel}}, Path=Currency}"></Label>
+                                        <Label Text="{Binding CardPrices[0].CardmarketPrice}"></Label>
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+                            </Frame>
+
+                            <Label HorizontalOptions="Center">Sets</Label>
+
+                            <CollectionView ItemsSource="{Binding CardSets}" Margin="0,10,0,10">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:CardSet">
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding SetName}"></Label>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <Picker x:Name="deckPicker"
+                                    x:DataType="model:Deck"
+                                    Title="Select a deck"
+                                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:CardsViewModel}}, Path=DeckList}"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    SelectedItem="{Binding Source={RelativeSource AncestorType={x:Type local:CardsViewModel}}, Path=PickerItem}"
+                                    HorizontalOptions="Center">
+                            </Picker>
+
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Button Text="+" TextColor="Black" WidthRequest="45" Margin="5" FontSize="Medium"
+                                        CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardsViewModel}}, Path=AddToDeckCommand}" CornerRadius="30">
+                                </Button>
+
+                                <Button Text="☆" TextColor="Black" BackgroundColor="{StaticResource Secondary}" WidthRequest="45" Margin="5" FontSize="Medium" CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type local:CardsViewModel}}, Path=AddToWishListCommand}" CornerRadius="30"></Button>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

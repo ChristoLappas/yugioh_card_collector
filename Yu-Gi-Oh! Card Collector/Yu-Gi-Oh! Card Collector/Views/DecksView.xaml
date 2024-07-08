@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Yu_Gi_Oh__Card_Collector.Views.DecksView"
+             xmlns:local="clr-namespace:Yu_Gi_Oh__Card_Collector.ViewModels"
+             x:DataType="local:DecksViewModel"
+             xmlns:model="clr-namespace:Yu_Gi_Oh__Card_Collector.Models" 
+             Title="Decks">            
+             
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding ShowDecksCommand}"/>  
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Entry Placeholder="Deck name" Text="{Binding Name}"/>
+            <Button Text="Create new deck" Command="{Binding CreateDeckCommand}"/>
+
+            <CollectionView x:Name="DeckCollection" ItemsSource="{Binding Decks}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Deck">
+                        <VerticalStackLayout Margin="10">
+                            <Label Text="{Binding Name}" HorizontalOptions="Center" FontSize="Large"></Label>
+                            <ImageButton Source="deckwallpaper" MaximumHeightRequest="450" Aspect="Fill" Margin="10" CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type local:DecksViewModel}}, Path=GoToDeckDetailsCommand}">
+                                <ImageButton.Shadow>
+                                    <Shadow Brush="Black"
+                                            Offset="20,20"
+                                            Radius="40"
+                                            Opacity="0.8" />
+                                </ImageButton.Shadow>
+                            </ImageButton>                            
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

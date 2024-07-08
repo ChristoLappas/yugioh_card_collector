@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"    
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:Yu_Gi_Oh__Card_Collector.ViewModels"
+             x:DataType="local:SettingsViewModel"
+             x:Class="Yu_Gi_Oh__Card_Collector.Views.SettingsView"
+             Title="Settings">
+    
+    <VerticalStackLayout>
+        <Frame BorderColor="Transparent" HasShadow="True" CornerRadius="100" BackgroundColor="{StaticResource Primary}" HeightRequest="150" WidthRequest="150" Margin="0,20,0,0">
+            <ImageButton Source="{Binding ProfilePic}" Command="{Binding UploadImageCommand}" HeightRequest="200" WidthRequest="200"/>
+        </Frame>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="40" Grid.ColumnSpan="2"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0"  Text="Dark mode" VerticalOptions="Center"/>
+            <Switch Grid.Column="1" Grid.Row="0" IsToggled="{Binding Dark}">
+                <Switch.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                    EventName="Toggled"
+                    Command="{Binding DarkModeCommand}"/>
+                </Switch.Behaviors>
+            </Switch>
+            <Label Grid.Column="0" Grid.Row="1" Text="Username" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Name}" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray600}}" VerticalOptions="Center" Margin="0,0,5,0"/>
+            <Label Grid.Column="0" Grid.Row="2" Text="Password" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Grid.Row="2" Margin="0,0,5,0" Text="{Binding Password}" IsPassword="True" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray600}}" VerticalOptions="Center"/>
+            <Label Grid.Column="0" Grid.Row="3" Text="Repeat password" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Grid.Row="3" Margin="0,0,5,0" Text="{Binding Password2}" IsPassword="True" BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray600}}" VerticalOptions="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Text="Currency" VerticalOptions="Center"/>
+            <Picker Grid.Column="1" Grid.Row="4" Title="Currency" VerticalOptions="Center" SelectedItem="{Binding Currency}">
+                <Picker.Items>
+                    <x:String>€ Euro</x:String>
+                    <x:String>$ Dollar</x:String>
+                </Picker.Items>
+            </Picker>
+        </Grid>       
+
+        <Button Text="Save settings" Command="{Binding SaveSettingsCommand}"/>
+    </VerticalStackLayout>
+
+</ContentPage>
